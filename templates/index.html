@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <title>局域网文件互传</title>
+  <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+
+  <!-- 昵称设置视图 -->
+  <div id="setup-view" class="hidden">
+    <div class="setup-card">
+      <div class="setup-logo">📡</div>
+      <h1>局域网文件互传</h1>
+      <p class="setup-desc">输入一个昵称开始使用，局域网内的好友就能给你发送文件</p>
+      <input id="nickname-input" type="text" maxlength="20" placeholder="你的昵称，如：小明" autocomplete="off">
+      <div id="setup-error" class="setup-error"></div>
+      <button id="setup-btn" class="btn btn-primary btn-block">进入</button>
+    </div>
+  </div>
+
+  <!-- 主视图 -->
+  <div id="main-view" class="hidden">
+    <header class="topbar">
+      <div class="topbar-title">📡 局域网文件互传</div>
+      <div class="topbar-right">
+        <span id="conn-dot" class="conn-dot offline" title="连接状态"></span>
+        <span id="my-nickname" class="my-nickname"></span>
+      </div>
+    </header>
+
+    <nav class="tabs">
+      <button id="tab-inbox" class="tab active">
+        收件箱 <span id="inbox-badge" class="badge hidden">0</span>
+      </button>
+      <button id="tab-outbox" class="tab">发件箱</button>
+    </nav>
+
+    <main id="file-list" class="file-list"></main>
+
+    <button id="fab" class="fab" title="发送文件">＋</button>
+    <input id="file-input" type="file" class="hidden">
+  </div>
+
+  <!-- 拖拽上传遮罩 -->
+  <div id="drop-overlay" class="drop-overlay hidden">
+    <div class="drop-hint">📂 松开鼠标，选择接收人并发送</div>
+  </div>
+
+  <!-- 上传弹窗 -->
+  <div id="upload-modal" class="modal-mask hidden">
+    <div class="modal">
+      <h2 class="modal-title">发送文件</h2>
+      <div class="modal-file">
+        <span id="modal-file-icon" class="file-icon">📄</span>
+        <div class="modal-file-info">
+          <div id="modal-file-name" class="modal-file-name"></div>
+          <div id="modal-file-size" class="modal-file-size"></div>
+        </div>
+        <button id="modal-repick" class="btn btn-text">重新选择</button>
+      </div>
+      <label class="modal-label" for="recipient-select">接收人</label>
+      <select id="recipient-select">
+        <option value="" disabled selected>请选择接收人</option>
+      </select>
+      <div id="upload-progress-wrap" class="hidden">
+        <div class="progress"><div id="upload-progress" class="progress-bar"></div></div>
+        <div id="upload-percent" class="progress-text">0%</div>
+      </div>
+      <div class="modal-actions">
+        <button id="upload-cancel" class="btn">取消</button>
+        <button id="upload-send" class="btn btn-primary" disabled>发送</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Toast 容器 -->
+  <div id="toasts" class="toasts"></div>
+
+  <script src="/static/app.js"></script>
+</body>
+</html>
